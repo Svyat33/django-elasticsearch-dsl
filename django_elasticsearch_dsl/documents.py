@@ -51,6 +51,12 @@ model_field_class_to_field_class = {
     models.UUIDField: KeywordField,
 }
 
+try:
+    from django.contrib.postgres.fields import CICharField
+    model_field_class_to_field_class[CICharField] = TextField
+except:
+    pass
+
 class DocType(DSLDocument):
     _prepared_fields = []
     def __init__(self, related_instance_to_ignore=None, **kwargs):
